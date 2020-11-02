@@ -24,13 +24,13 @@ class PokemonPage extends React.Component {
     this.setState({
       filter: input
     })
-    combine()
+    //this.combine()
   }
 
   
 
   render() {
-    let combine = () => {
+    const combine = () => {
     return this.state.pokemon.filter(pokemon => pokemon.name.includes(this.state.filter))
     }
     return (
