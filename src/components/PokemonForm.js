@@ -2,7 +2,7 @@ import React from 'react'
 import { Form } from 'semantic-ui-react'
 
 class PokemonForm extends React.Component {
-  //new pokemon object from submission 
+  //new Pokemon Object from submission 
   constructor() {
     super()
     this.state = {
@@ -37,7 +37,7 @@ class PokemonForm extends React.Component {
   }
 
   handleSubmit = () => {
-    //send pokemon object to page
+    //createNewPoke -> send Pokemon Object (state) to Pokemon Page
     this.props.createNewPoke(this.state)
    }
     
@@ -57,7 +57,6 @@ class PokemonForm extends React.Component {
       </div>
     )
   }}
-
 
 
 export default PokemonForm
