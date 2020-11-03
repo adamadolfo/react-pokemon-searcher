@@ -8,7 +8,8 @@ class PokemonPage extends React.Component {
 
   state = {
     pokemon: [],
-    filter: ""
+    filter: "",
+    newPokeObject: []
   }
 
   componentDidMount() {
@@ -19,29 +20,42 @@ class PokemonPage extends React.Component {
     }))
   }
   
-
+//use result of search 
   handleSearch = (input) => {
     this.setState({
       filter: input
     })
-    //this.combine()
   }
 
-  
+  pokemoneResults = () => {
+  return this.state.pokemon.filter(pokemon => pokemon.name.includes(this.state.filter))
+  }
+
+  createNewPoke = (newPokeObject) => {
+    fetch("http://localhost:3000/pokemon", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(newPokeObject)
+    })
+    .then(res => res.json())
+    .then(poke => {
+      this.setState({
+        pokemon: [...this.state.pokemon, poke]
+      })
+    })
+}
 
   render() {
-    const combine = () => {
-    return this.state.pokemon.filter(pokemon => pokemon.name.includes(this.state.filter))
-    }
+    
     return (
       <Container>
         <h1>Pokemon Searcher</h1>
         <br />
-        <PokemonForm />
+        <PokemonForm createNewPoke={this.createNewPoke} />
         <br />
         <Search handleSearch={this.handleSearch}/>
         <br />
-        <PokemonCollection allPokes={combine()} />
+        <PokemonCollection allPokes={this.pokemoneResults()} />
       </Container>
     )
   }
